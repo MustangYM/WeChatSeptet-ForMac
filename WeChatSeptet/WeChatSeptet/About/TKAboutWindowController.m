@@ -49,7 +49,7 @@ static NSString * const kWeChatResourcesPath = @"/Applications/WeChat.app/Conten
 
 - (IBAction)didClickHomepageURL:(NSButton *)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/MustangYM/WeChatExtension-ForMac"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/MustangYM/WeChatSeptet-ForMac"]];
 }
 
 @end
