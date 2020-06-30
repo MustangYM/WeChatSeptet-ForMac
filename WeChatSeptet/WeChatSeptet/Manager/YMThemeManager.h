@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)changeTheme:(NSView *)view color:(NSColor *)color;
 - (NSColor *)randomColor:(NSString *)string;
 + (void)changeButtonTheme:(NSButton *)button;
+- (BOOL)checkWeChatLaunched;
 @end
 
 NS_ASSUME_NONNULL_END

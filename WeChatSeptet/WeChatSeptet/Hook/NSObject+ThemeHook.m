@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AppKit/AppKit.h>
 #import "YMThemeManager.h"
+#import "YMWeChatConfig.h"
 
 @interface NSCellAuxiliary : NSObject
 
@@ -24,6 +25,12 @@
         [[YMWeChatConfig sharedConfig] setIsThemeLoaded:YES];
         [[YMWeChatConfig sharedConfig] setDarkMode:YES];
         [[YMWeChatConfig sharedConfig] setGroupMultiColorMode:YES];
+    }
+    
+    if ([[YMThemeManager shareInstance] checkWeChatLaunched]) {
+        [YMWeChatConfig sharedConfig].darkMode = NO;
+        [YMWeChatConfig sharedConfig].blackMode = NO;
+        [YMWeChatConfig sharedConfig].pinkMode = YES;
     }
     
     if (YMWeChatConfig.sharedConfig.usingTheme) {
