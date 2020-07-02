@@ -96,7 +96,7 @@
     [subBackgroundMenu addItems:@[darkModeItem, blackModeItem, pinkColorItem]];
     backGroundItem.submenu = subBackgroundMenu;
     
-    NSMenuItem *newWeChatItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"多开", @"About")
+    NSMenuItem *newWeChatItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"多开", @"New WeChat")
                                                          action:@selector(onNewWeChat:)
                                                          target:self
                                                   keyEquivalent:@""
