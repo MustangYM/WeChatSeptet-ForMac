@@ -16,6 +16,12 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
     PluginLanguageTypeEN
 };
 
+typedef NS_ENUM(NSInteger, PluginThemeMode) {
+    PluginThemeModeDark,
+    PluginThemeModeBlack,
+    PluginThemeModePink
+};
+
 @interface YMWeChatConfig : GVUserDefaults
 @property (nonatomic) BOOL preventRevokeEnable;                 /**<    是否开启防撤回    */
 @property (nonatomic) BOOL preventSelfRevokeEnable;             /**<    是否防撤回自己    */
@@ -27,14 +33,14 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
 
 @property (nonatomic) BOOL autoLoginEnable;                     /**<    是否自动登录      */
 
-@property (nonatomic) BOOL darkMode;                            /**<    黑暗模式     */
-@property (nonatomic) BOOL blackMode;                           /**<    深邃模式     */
-@property (nonatomic) BOOL pinkMode;                            /**<    少女模式     */
-@property (nonatomic) BOOL groupMultiColorMode;                 /**<    群成员彩色     */
+@property (nonatomic) BOOL cacheDarkMode;                            /**<    黑暗模式     */
+@property (nonatomic) BOOL cacheBlackMode;                           /**<    深邃模式     */
+@property (nonatomic) BOOL cachePinkMode;                            /**<    少女模式     */
 @property (nonatomic) BOOL isThemeLoaded;                       /**<    是否有使用过皮肤    */
 
 @property (nonatomic, strong) NSMutableSet *revokeMsgSet;                /**<    撤回的消息集合    */
 @property (nonatomic) PluginLanguageType languageType;
+@property (nonatomic, assign) PluginThemeMode currentThemeMode;
 
 + (instancetype)sharedConfig;
 
@@ -51,6 +57,9 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
 - (NSColor *)mainScrollerColor;
 - (NSColor *)mainDividerColor;
 - (NSColor *)mainChatCellBackgroundColor;
+
+- (void)initializeModelConfig;
+- (void)saveThemeModes:(PluginThemeMode)mode;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -33,6 +33,11 @@
     hookMethod(objc_getClass("MMLoginOneClickViewController"), @selector(viewWillAppear), [self class], @selector(hook_viewWillAppear));
     
     hookMethod(objc_getClass("WeChat"), @selector(applicationDidFinishLaunching:), [self class], @selector(hook_applicationDidFinishLaunching:));
+
+    //多开
+    SEL hasWechatInstanceMethod = LargerOrEqualVersion(@"2.3.22") ? @selector(FFSvrChatInfoMsgWithImgZZ) : @selector(HasWechatInstance);
+    hookClassMethod(objc_getClass("CUtility"), hasWechatInstanceMethod, [self class], @selector(hook_HasWechatInstance));
+    hookClassMethod(objc_getClass("NSRunningApplication"), @selector(runningApplicationsWithBundleIdentifier:), [self class], @selector(hook_runningApplicationsWithBundleIdentifier:));
     
     rebind_symbols((struct rebinding[2]) {
         { "NSSearchPathForDirectoriesInDomains", swizzled_NSSearchPathForDirectoriesInDomains, (void *)&original_NSSearchPathForDirectoriesInDomains },
@@ -144,6 +149,15 @@
         
         [msgService AddLocalMsg:session msgData:newMsgData];
     }
+}
+
+#pragma mark - 多开
++ (BOOL)hook_HasWechatInstance {
+    return NO;
+}
+
++ (NSArray *)hook_runningApplicationsWithBundleIdentifier:(id)arg1 {
+    return @[];
 }
 
 #pragma mark - 替换 NSSearchPathForDirectoriesInDomains & NSHomeDirectory

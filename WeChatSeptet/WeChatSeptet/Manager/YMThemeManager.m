@@ -29,29 +29,6 @@ static const NSString *DEVICE_THEME_MODE = @"DEVICE_THEME_MODE";
     return share;
 }
 
-- (void)initializeModelConfig
-{
-    if (!self.fingerprint) {
-        self.fingerprint = [YMDeviceHelper deviceFingerprint];
-    }
-    
-    NSDictionary *deviceFingerprint = @{
-        DEVICE_FINGERPRINT : self.fingerprint,
-        DEVICE_FINGERPRINT : [self _modelValue]
-    };
-    
-}
-
-- (NSString *)_modelValue
-{
-    if ([YMWeChatConfig sharedConfig].darkMode) {
-        return @"1";
-    } else if ([YMWeChatConfig sharedConfig].pinkMode) {
-        return @"2";
-    }
-    return @"0";
-}
-
 - (void)changeTheme:(NSView *)view
 {
     [self changeTheme:view color:kMainBackgroundColor];
@@ -154,7 +131,6 @@ static const NSString *DEVICE_THEME_MODE = @"DEVICE_THEME_MODE";
     NSArray *ary = [[NSWorkspace sharedWorkspace] launchedApplications];
     __block BOOL isWeChatLaunched = NO;
     [ary enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSLog(@"启动微信");
         NSString *bundleID = [obj valueForKey:@"NSApplicationBundleIdentifier"];
         if ([bundleID isEqualToString:@"com.tencent.xinWeChat"]) {
             isWeChatLaunched = YES;

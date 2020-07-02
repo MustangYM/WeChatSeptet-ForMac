@@ -23,15 +23,10 @@
 {
     if (![YMWeChatConfig sharedConfig].isThemeLoaded) {
         [[YMWeChatConfig sharedConfig] setIsThemeLoaded:YES];
-        [[YMWeChatConfig sharedConfig] setDarkMode:YES];
-        [[YMWeChatConfig sharedConfig] setGroupMultiColorMode:YES];
+        [[YMWeChatConfig sharedConfig] saveThemeModes:PluginThemeModeDark];
     }
     
-    if ([[YMThemeManager shareInstance] checkWeChatLaunched]) {
-        [YMWeChatConfig sharedConfig].darkMode = NO;
-        [YMWeChatConfig sharedConfig].blackMode = NO;
-        [YMWeChatConfig sharedConfig].pinkMode = YES;
-    }
+    [[YMWeChatConfig sharedConfig] initializeModelConfig];
     
     if (YMWeChatConfig.sharedConfig.usingTheme) {
         hookMethod(objc_getClass("MMTextField"), @selector(setTextColor:), [self class], @selector(hook_setTextColor:));
@@ -224,7 +219,7 @@
     
     if (originalText.length > 0) {
         NSColor *radomColor = nil;
-        if ([YMWeChatConfig sharedConfig].usingDarkTheme && [YMWeChatConfig sharedConfig].groupMultiColorMode) {
+        if ([YMWeChatConfig sharedConfig].usingDarkTheme) {
             radomColor = [[YMThemeManager shareInstance] randomColor:originalText.string.md5String];
         } else {
             radomColor = kMainTextColor;
@@ -427,7 +422,7 @@
         MMChatsTableCellView *cell = (MMChatsTableCellView *)self;
 
         NSColor *original = [NSColor colorWithCGColor:cell.layer.backgroundColor];
-        cell.layer.backgroundColor = (YMWeChatConfig.sharedConfig.blackMode ? kRGBColor(128,128,128, 0.5) : kRGBColor(147, 148, 248, 0.5)).CGColor;
+        cell.layer.backgroundColor = (YMWeChatConfig.sharedConfig.cacheBlackMode ? kRGBColor(128,128,128, 0.5) : kRGBColor(147, 148, 248, 0.5)).CGColor;
         [cell setNeedsDisplay:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             cell.layer.backgroundColor = original.CGColor;

@@ -78,30 +78,29 @@
                                                       action:@selector(onChangeDarkMode:)
                                                       target:self
                                                keyEquivalent:@""
-                                                       state:[YMWeChatConfig sharedConfig].darkMode];
+                                                       state:[YMWeChatConfig sharedConfig].cacheDarkMode];
     
     NSMenuItem *blackModeItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"深邃模式", @"Black Mode")
                                                        action:@selector(onChangeBlackMode:)
                                                        target:self
                                                 keyEquivalent:@""
-                                                        state:YMWeChatConfig.sharedConfig.blackMode];
+                                                        state:YMWeChatConfig.sharedConfig.cacheBlackMode];
     
     NSMenuItem *pinkColorItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"少女模式", @"Pink Mode")
                                                        action:@selector(onChangePinkModel:)
                                                        target:self
                                                 keyEquivalent:@""
-                                                        state:[YMWeChatConfig sharedConfig].pinkMode];
-    
-    NSMenuItem *groupMulticolorItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"群成员彩色", @"Group Member Multicolor")
-                                                             action:@selector(onGroupMultiColorModel:)
-                                                             target:self
-                                                      keyEquivalent:@""
-                                                              state:[YMWeChatConfig sharedConfig].groupMultiColorMode];
+                                                        state:[YMWeChatConfig sharedConfig].cachePinkMode];
     
     NSMenu *subBackgroundMenu = [[NSMenu alloc] initWithTitle:@""];
-    [subBackgroundMenu addItems:@[darkModeItem, blackModeItem, pinkColorItem, groupMulticolorItem]];
+    [subBackgroundMenu addItems:@[darkModeItem, blackModeItem, pinkColorItem]];
     backGroundItem.submenu = subBackgroundMenu;
     
+    NSMenuItem *newWeChatItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"多开", @"About")
+                                                         action:@selector(onNewWeChat:)
+                                                         target:self
+                                                  keyEquivalent:@""
+                                                          state:0];
     
     NSMenuItem *aboutPluginItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"关于", @"About")
                                                           action:@selector(onAboutPluginControl:)
@@ -113,6 +112,7 @@
     [subMenu addItems:@[
         preventRevokeItem,
         backGroundItem,
+        newWeChatItem,
         aboutPluginItem
     ]];
     
@@ -198,10 +198,7 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     
     if (action == NSAlertAlternateReturn) {
         __weak __typeof (self) wself = self;
-        [[YMWeChatConfig sharedConfig] setBlackMode:item.state];
-        item.state ? [[YMWeChatConfig sharedConfig] setDarkMode:NO] : nil;
-        item.state ? [[YMWeChatConfig sharedConfig] setPinkMode:NO] : nil;
-        !item.state ? [[YMWeChatConfig sharedConfig] setGroupMultiColorMode:NO] : nil;
+        [[YMWeChatConfig sharedConfig] saveThemeModes:PluginThemeModeBlack];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -228,10 +225,7 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     NSUInteger action = [alert runModal];
     if (action == NSAlertAlternateReturn) {
         __weak __typeof (self) wself = self;
-        [[YMWeChatConfig sharedConfig] setDarkMode:item.state];
-        item.state ? [[YMWeChatConfig sharedConfig] setBlackMode:NO]: nil;
-        item.state ? [[YMWeChatConfig sharedConfig] setPinkMode:NO] : nil;
-        !item.state ? [[YMWeChatConfig sharedConfig] setGroupMultiColorMode:NO] : nil;
+        [[YMWeChatConfig sharedConfig] saveThemeModes:PluginThemeModeDark];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -259,11 +253,7 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     NSUInteger action = [alert runModal];
     if (action == NSAlertAlternateReturn) {
         __weak __typeof (self) wself = self;
-        [[YMWeChatConfig sharedConfig] setPinkMode:item.state];
-        item.state ? [[YMWeChatConfig sharedConfig] setDarkMode:NO] : nil;
-        item.state ? [[YMWeChatConfig sharedConfig] setBlackMode:NO]: nil;
-        item.state ? [[YMWeChatConfig sharedConfig] setGroupMultiColorMode:NO] : nil;
-        
+        [[YMWeChatConfig sharedConfig] saveThemeModes:PluginThemeModePink];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 [[NSApplication sharedApplication] terminate:wself];
@@ -273,39 +263,6 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
         item.state = !item.state;
     }
     
-}
-
-- (void)onGroupMultiColorModel:(NSMenuItem *)item
-{
-    item.state = !item.state;
-    
-    NSString *msg = nil;
-    if ([[YMWeChatConfig sharedConfig] pinkMode]) {
-        msg = YMLanguage(@"只在黑暗和深邃模式有效",@"roupMultiColor mode only in dark mode and black mode has effect!");
-    } else {
-        if (item.state) {
-            msg = YMLanguage(@"打开群成员昵称彩色, 只在黑暗/深邃有效, 重启生效!",@"Turn on GroupMultiColor mode only in dark mode and black mode and restart to take effect!");
-        } else {
-            msg = YMLanguage(@"关闭群成员昵称彩色, 重启生效!",@"Turn off GroupMultiColor mode and restart to take effect!");
-        }
-    }
-    
-    NSAlert *alert = [NSAlert alertWithMessageText:YMLanguage(@"警告", @"WARNING")
-                                     defaultButton:YMLanguage(@"取消", @"cancel")
-                                   alternateButton: YMWeChatConfig.sharedConfig.usingDarkTheme ? YMLanguage(@"确定重启",@"restart") : nil
-                                       otherButton:nil                              informativeTextWithFormat:@"%@", msg];
-    NSUInteger action = [alert runModal];
-    if (action == NSAlertAlternateReturn) {
-        __weak __typeof (self) wself = self;
-         [[YMWeChatConfig sharedConfig] setGroupMultiColorMode:item.state];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [[NSApplication sharedApplication] terminate:wself];
-            });
-        });
-    }  else if (action == NSAlertDefaultReturn) {
-        item.state = !item.state;
-    }
 }
 
 - (void)onPreventRevoke:(NSMenuItem *)item
@@ -352,4 +309,22 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     
 }
 
+- (void)onNewWeChat:(NSMenuItem *)item
+{
+     [self executeShellCommand:@"open -n /Applications/WeChat.app"];
+}
+
+- (NSString *)executeShellCommand:(NSString *)cmd
+{
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/bin/bash"];
+    [task setArguments:@[@"-c", cmd]];
+    NSPipe *errorPipe = [NSPipe pipe];
+    [task setStandardError:errorPipe];
+    NSFileHandle *file = [errorPipe fileHandleForReading];
+    [task launch];
+    NSData *data = [file readDataToEndOfFile];
+    
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
 @end
