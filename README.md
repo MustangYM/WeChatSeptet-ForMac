@@ -26,4 +26,4 @@ sudo rm -r -f WeChatSeptet-ForMac && git clone https://github.com/MustangYM/WeCh
 sudo rm -r -f WeChatSeptet-ForMac && git clone https://github.com/MustangYM/WeChatSeptet-ForMac.git && cd WeChatSeptet-ForMac/WeChatSeptet && ./uninstall.sh
 ```
 ## 手动安装
-与WeChatExtension的手动安装方式一样。下载本项目到电脑上，cd到WeChatSeptet文件夹，执行install.sh即可。
+与WeChatExtension的手动安装方式一样。下载本项目到电脑上，cd到WeChatSeptet文件夹，将install.sh文件拖入终端工具中回车执行即可。
