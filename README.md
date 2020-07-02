@@ -2,6 +2,11 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/wechatSeptetFace.png" width="1000px"/>
 </p>
 
+## 安装效果
+<p align="center">
+<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/WeChatSeptetFuntion.png" width="800px"/>
+</p>
+
 ## 简版特色功能，多开时使用不同主题。
 - 多开了微信A与微信B，假设此时都是`黑夜模式`。
 - 在微信B中选择`少女模式`，微信B退出。
