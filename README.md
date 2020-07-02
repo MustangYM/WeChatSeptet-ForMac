@@ -14,3 +14,14 @@
 <p align="center">
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/differentTheme.png" width="800px"/>
 </p>
+
+## 怎么安装？
+- 确保你的电脑有安装Git。
+- 安装
+```
+sudo rm -r -f WeChatSeptet-ForMac && git clone https://github.com/MustangYM/WeChatSeptet-ForMac.git && cd WeChatSeptet-ForMac/WeChatSeptet && ./install.sh
+```
+- 卸载
+```
+sudo rm -r -f WeChatSeptet-ForMac && git clone https://github.com/MustangYM/WeChatSeptet-ForMac.git && cd WeChatSeptet-ForMac/WeChatSeptet && ./uninstall.sh
+```
