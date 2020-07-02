@@ -16,7 +16,7 @@
 </p>
 
 ## 怎么安装？
-- 确保你的电脑有安装Git。
+- 确保你的电脑有安装Git，如果没有安装Git，执行`brew install git`可安装Git。
 - 安装
 ```
 sudo rm -r -f WeChatSeptet-ForMac && git clone https://github.com/MustangYM/WeChatSeptet-ForMac.git && cd WeChatSeptet-ForMac/WeChatSeptet && ./install.sh
@@ -25,3 +25,5 @@ sudo rm -r -f WeChatSeptet-ForMac && git clone https://github.com/MustangYM/WeCh
 ```
 sudo rm -r -f WeChatSeptet-ForMac && git clone https://github.com/MustangYM/WeChatSeptet-ForMac.git && cd WeChatSeptet-ForMac/WeChatSeptet && ./uninstall.sh
 ```
+## 手动安装
+与WeChatExtension的手动安装方式一样。下载本项目到电脑上，cd到WeChatSeptet文件夹，执行install.sh即可。
