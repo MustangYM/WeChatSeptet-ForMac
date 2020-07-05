@@ -2,14 +2,14 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/wechatSeptetFace.png" width="1000px"/>
 </p>
 
-因为完整版[WeChatExtension](https://github.com/MustangYM/WeChatExtension-ForMac)过于臃肿，且大部分用户只会用到少部分核心功能（包括我自己），所以开发了简版的小助手WeChatSeptet。
+因为完整版[WeChatExtension](https://github.com/MustangYM/WeChatExtension-ForMac)过于臃肿，且大部分用户只会用到少部分核心功能（包括我自己，所以开发了简版的小助手WeChatSeptet。
 
 ## 安装效果
 <p align="center">
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/WeChatSeptetFuntion.png" width="800px"/>
 </p>
 
-## 简版特色功能，多开时使用不同主题。
+## 简版特色功能，多开时使用不同主题
 - 多开了微信A与微信B，假设此时都是`黑夜模式`。
 - 在微信B中选择`少女模式`，微信B自动退出。
 - 在微信A中点击多开，登录微信B，即可实现两个微信使用不同的皮肤。
