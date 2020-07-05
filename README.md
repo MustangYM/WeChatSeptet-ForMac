@@ -2,7 +2,7 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/wechatSeptetFace.png" width="1000px"/>
 </p>
 
-因为完整版[WeChatExtension](https://github.com/MustangYM/WeChatExtension-ForMac)过于臃肿，且大部分用户只会用到少部分核心功能（包括我自己，所以开发了简版的小助手WeChatSeptet。
+因为完整版[WeChatExtension](https://github.com/MustangYM/WeChatExtension-ForMac)过于臃肿，且大部分用户只会用到少部分核心功能(包括我自己)，所以开发了简版的小助手WeChatSeptet。
 
 ## 安装效果
 <p align="center">
