@@ -15,11 +15,11 @@
 - 确保你的电脑有安装Git，如果没有安装Git，执行`brew install git`可安装Git。
 - 安装
 ```
-sudo rm -r -f WeChatShelby-ForMac && git clone https://github.com/MustangYM/WeChatShelby-ForMac && cd WeChatShelby-ForMac/WeChatSeptet && ./install.sh
+sudo rm -r -f WeChatSeptet-ForMac && git clone https://github.com/MustangYM/WeChatSeptet-ForMac && cd WeChatSeptet-ForMac/WeChatSeptet && ./install.sh
 ```
 - 卸载
 ```
-sudo rm -r -f WeChatShelby-ForMac && git clone https://github.com/MustangYM/WeChatShelby-ForMac && cd WeChatShelby-ForMac/WeChatSeptet && ./uninstall.sh
+sudo rm -r -f WeChatSeptet-ForMac && git clone https://github.com/MustangYM/WeChatSeptet-ForMac && cd WeChatSeptet-ForMac/WeChatSeptet && ./uninstall.sh
 ```
 ## 手动安装
 与[WeChatExtension](https://github.com/MustangYM/WeChatExtension-ForMac)的手动安装方式一样。下载本项目到电脑上，cd到WeChatSeptet文件夹，将install.sh文件拖入终端工具中回车执行即可。
