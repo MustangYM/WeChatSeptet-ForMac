@@ -1,6 +1,0 @@
-framework module WeChatSeptet {
-  umbrella header "WeChatSeptet.h"
-
-  export *
-  module * { export * }
-}
